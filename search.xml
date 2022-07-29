@@ -1,38 +1,352 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>Hello World</title>
-    <url>/2022/04/28/hello-world/</url>
-    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">$ hexo new <span class="hljs-string">&quot;My New Post&quot;</span> hexo new <span class="hljs-string">&quot;My New Post&quot;</span> hexo new <span class="hljs-string">&quot;My New Post&quot;</span> hexo new <span class="hljs-string">&quot;My New Post&quot;</span> hexo new <span class="hljs-string">&quot;My New Post&quot;</span> hexo new <span class="hljs-string">&quot;My New Post&quot;</span><br></code></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">$ hexo server<br></code></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">$ hexo generate<br>$ hexo new <span class="hljs-string">&quot;My New Post&quot;</span><br>$ hexo new <span class="hljs-string">&quot;My New Post&quot;</span><br></code></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">$ hexo deploy<br>$ hexo new <span class="hljs-string">&quot;My New Post&quot;</span><br></code></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
-]]></content>
+    <title>Docker基础篇</title>
+    <url>/2022/07/29/Docker%E5%9F%BA%E7%A1%80%E7%AF%87/</url>
+    <content><![CDATA[<h4 id="一、概念"><a href="#一、概念" class="headerlink" title="一、概念"></a>一、概念</h4><p>1、什么是Docker？</p>
+<p>​    Docker是一种容器化技术，它可以让开发者将其开发的应用以及相关的依赖包打包到一个轻量级的，可移植的容器中，然后可以发布到任何现下流行的操作系统上（如：Linux或Windows）直接运行，容器使用沙箱机制隔离，相互之间不会有任何的接口，更重要的是容器性能开销很低。</p>
+<p>​    比如一个程序员开发了一个博客网站，此时他买了一台云服务器，想要将自己写好的网站程序打包发布到云服务上面运行，让所有的用户都可以进行访问。我们都知道在编写程序之前，应该先安装编程环境，只有这样程序才可以正常的运行。但是安装环境是一件让人很头疼的事情，这个程序员不想在新买的云服务器上面重新安装一遍编程环境，这种情况应该怎么办呢？这时他想到了 Docker，首先他用 Docker 将本机上的编程环境以及应用程序一起打包成了一个镜像，然后将镜像拉取到云服务器上面直接在容器中运行，这样就顺利解决了问题，不用再担心编程环境的配置问题。</p>
+<p>​    通俗一点来讲，Docker就像是一艘运输货物的巨轮，将应用程序及其运行环境放到一个集装箱中，而每一台主机就像是一座港口，Docker将一个个的集装箱从一个港口原模原样的运送到另一个港口，即将程序搬到不同的主机上直接交付。</p>
+<p>2、Docker的优点？</p>
+<ul>
+<li>Docker 能够将应用程序与基础架构分开，从而可以快速交付软件。</li>
+<li>Docker 可以快速交付，测试和部署代码。</li>
+<li>Docker可以减小生产环境和开发环境的差异性，减少二者之间运行代码的延迟。</li>
+</ul>
+<p>3、Docker地三大核心组件</p>
+<ul>
+<li>镜像(Image)：一个Linux的文件系统。</li>
+<li>容器(Container)：镜像的运行时实例。</li>
+<li>仓库(Repository)：集中存储镜像的地方。</li>
+</ul>
+<h4 id="二、常用命令"><a href="#二、常用命令" class="headerlink" title="二、常用命令"></a>二、常用命令</h4><p>启动docker服务</p>
+<figure class="highlight docker"><table><tr><td class="code"><pre><code class="hljs docker">systemctl start docker<br></code></pre></td></tr></table></figure>
+<p>停止docker服务</p>
+<figure class="highlight arduino"><table><tr><td class="code"><pre><code class="hljs arduino">systemctl stop docker<br></code></pre></td></tr></table></figure>
+<p>重启docker服务</p>
+<figure class="highlight ebnf"><table><tr><td class="code"><pre><code class="hljs ebnf"><span class="hljs-attribute">systemctl restart docker</span><br></code></pre></td></tr></table></figure>
+<p>查看docker状态</p>
+<figure class="highlight ebnf"><table><tr><td class="code"><pre><code class="hljs ebnf"><span class="hljs-attribute">systemctl status docker</span><br></code></pre></td></tr></table></figure>
+<p>开机启动docker</p>
+<figure class="highlight routeros"><table><tr><td class="code"><pre><code class="hljs routeros">systemctl <span class="hljs-built_in">enable</span> docker<br></code></pre></td></tr></table></figure>
+<p>Docker帮助命令</p>
+<p>查看docker概要信息</p>
+<figure class="highlight nginx"><table><tr><td class="code"><pre><code class="hljs nginx"><span class="hljs-attribute">docker</span> <span class="hljs-literal">info</span><br></code></pre></td></tr></table></figure>
+<p>查看docker总体帮助文档</p>
+<figure class="highlight ada"><table><tr><td class="code"><pre><code class="hljs ada">docker <span class="hljs-comment">--help</span><br></code></pre></td></tr></table></figure>
+<p>查看docker命令帮助文档</p>
+<figure class="highlight ada"><table><tr><td class="code"><pre><code class="hljs ada">docker 具体命令 <span class="hljs-comment">--help</span><br></code></pre></td></tr></table></figure>
+<p>镜像相关命令</p>
+<p>列出本机上的镜像</p>
+<figure class="highlight avrasm"><table><tr><td class="code"><pre><code class="hljs avrasm"><span class="hljs-symbol">COMMAND:</span><br>  docker images<br><span class="hljs-symbol">OPTIONS:</span><br>  -a 展示所有的镜像<br>  -q 仅展示镜像源的ID<br></code></pre></td></tr></table></figure>
+<p>搜索镜像</p>
+<figure class="highlight docker"><table><tr><td class="code"><pre><code class="hljs docker">COMMAND:<br>  docker search [ImageName]<br>OPTIONS:<br>  --limit [Number] <span class="hljs-comment"># 列出前Number个镜像</span><br></code></pre></td></tr></table></figure>
+<p>拉取镜像</p>
+<figure class="highlight inform7"><table><tr><td class="code"><pre><code class="hljs inform7">docker pull <span class="hljs-comment">[ImageName]</span>:<span class="hljs-comment">[TAG]</span><br></code></pre></td></tr></table></figure>
+<p>查看镜像/容器/数据卷所占的空间</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">docker system <span class="hljs-built_in">df</span><br></code></pre></td></tr></table></figure>
+<p>删除镜像</p>
+<figure class="highlight powershell"><table><tr><td class="code"><pre><code class="hljs powershell"><span class="hljs-comment"># 删除单个镜像</span><br>docker rmi <span class="hljs-operator">-f</span> 镜像ID<br><span class="hljs-comment"># 删除多个镜像</span><br>docker rmi <span class="hljs-operator">-f</span> 镜像名<span class="hljs-number">1</span>:TAG[<span class="hljs-type">ImageID1</span>] 镜像名<span class="hljs-number">2</span>:TAG[<span class="hljs-type">ImageID2</span>]...<br><span class="hljs-comment"># 删除全部</span><br>docker rmi <span class="hljs-operator">-f</span> <span class="hljs-variable">$</span>(docker images <span class="hljs-literal">-qa</span>)<br></code></pre></td></tr></table></figure>
+<p>运行容器</p>
+<figure class="highlight stylus"><table><tr><td class="code"><pre><code class="hljs stylus">COMMAND:<br>  docker run <span class="hljs-selector-attr">[OPTIONS]</span> IMAGE <span class="hljs-selector-attr">[COMMAND]</span><span class="hljs-selector-attr">[ARG...]</span> <br>OPTIONS:<br>  <span class="hljs-attr">--name</span>=<span class="hljs-string">&quot;New Name&quot;</span> 即为容器指定一个名称<br>  -d 后台运行容器并返回容器ID，即启动守护式容器（后台运行）<br>  -<span class="hljs-selector-tag">i</span> 以交互式运行容器，通常与-t同时使用<br>  -t 为容器重新分配一个伪输入终端，通常与-i同时使用<br>  -P 随机端口映射<br>  -<span class="hljs-selector-tag">p</span> 指定端口映射<br></code></pre></td></tr></table></figure>
+<p>  列出所有正在运行的容器实例</p>
+<figure class="highlight stylus"><table><tr><td class="code"><pre><code class="hljs stylus">COMMAND:<br>  docker ps <span class="hljs-selector-attr">[OPTIONS]</span><br>OPTIONS:<br>  -<span class="hljs-selector-tag">a</span> 列出当前所有正在运行的容器以及历史上运行过的容器<br>  -l 显示最近创建的容器<br>  -n 显示最近创建的n个容器<br>  -<span class="hljs-selector-tag">q</span> 静默模式，只显示容器编号<br></code></pre></td></tr></table></figure>
+<p>退出容器</p>
+<figure class="highlight awk"><table><tr><td class="code"><pre><code class="hljs awk"><span class="hljs-comment"># 使用该命令退出容器时，容器停止运行</span><br><span class="hljs-keyword">exit</span><br><span class="hljs-comment"># 使用该命令退出容器时，容器不停止运行</span><br>ctrl + p + q<br></code></pre></td></tr></table></figure>
+<p>启动已停止的容器</p>
+<figure class="highlight crmsh"><table><tr><td class="code"><pre><code class="hljs crmsh">docker <span class="hljs-literal">start</span> 容器ID或者容器名称<br></code></pre></td></tr></table></figure>
+<p>重启容器</p>
+<figure class="highlight maxima"><table><tr><td class="code"><pre><code class="hljs maxima">docker <span class="hljs-built_in">restart</span> 容器ID或容器名称<br></code></pre></td></tr></table></figure>
+<p>停止容器</p>
+<figure class="highlight arduino"><table><tr><td class="code"><pre><code class="hljs arduino">docker stop 容器ID或容器名称<br></code></pre></td></tr></table></figure>
+<p>强制停止容器</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">docker <span class="hljs-built_in">kill</span> 容器ID或容器名称<br></code></pre></td></tr></table></figure>
+<p>删除已停止的容器</p>
+<figure class="highlight powershell"><table><tr><td class="code"><pre><code class="hljs powershell"><span class="hljs-comment"># 删除已停止运行的容器</span><br>docker <span class="hljs-built_in">rm</span> 容器ID或者容器名称<br><span class="hljs-comment"># 强制删除正在运行的容器</span><br>docker <span class="hljs-built_in">rm</span> <span class="hljs-operator">-f</span> 容器ID或容器名称<br><span class="hljs-comment"># 一次性删除多个容器实例</span><br>docker <span class="hljs-built_in">rm</span> <span class="hljs-operator">-f</span> <span class="hljs-variable">$</span>(docker <span class="hljs-built_in">ps</span> <span class="hljs-literal">-aq</span>)<br></code></pre></td></tr></table></figure>
+<p>查看容器日志</p>
+<figure class="highlight nginx"><table><tr><td class="code"><pre><code class="hljs nginx"><span class="hljs-attribute">docker</span> logs 容器ID<br></code></pre></td></tr></table></figure>
+<p>查看容器内运行的进程</p>
+<figure class="highlight coq"><table><tr><td class="code"><pre><code class="hljs coq">docker <span class="hljs-built_in">top</span> 容器ID<br></code></pre></td></tr></table></figure>
+<p>查看容器内部细节</p>
+<figure class="highlight gradle"><table><tr><td class="code"><pre><code class="hljs gradle">docker <span class="hljs-keyword">inspect</span> 容器ID<br></code></pre></td></tr></table></figure>
+<p>进入正在运行的容器并以命令行交互</p>
+<figure class="highlight css"><table><tr><td class="code"><pre><code class="hljs css">docker exec -it 容器ID或容器名称 <span class="hljs-selector-attr">[COMMAND]</span> <span class="hljs-selector-attr">[ARGS...]</span><br></code></pre></td></tr></table></figure>
+<figure class="highlight arduino"><table><tr><td class="code"><pre><code class="hljs arduino">docker attach 容器ID或者容器名称<br></code></pre></td></tr></table></figure>
+<p>二者区别：</p>
+<ul>
+<li>attach直接进入容器启动命令的终端，不会启动新的进程，使用exit进行退出时会导致容器停止。</li>
+<li>exec是在容器中打开新的终端，并且可以启动新的进程，使用exit进行退出时不会导致容器停止。</li>
+</ul>
+<p>从容器内拷贝文件到主机上</p>
+<figure class="highlight armasm"><table><tr><td class="code"><pre><code class="hljs armasm"><span class="hljs-symbol">docker</span> <span class="hljs-meta">cp</span> 容器ID:容器内路径 目的主机路径<br></code></pre></td></tr></table></figure>
+<p>导入和导出容器</p>
+<figure class="highlight elm"><table><tr><td class="code"><pre><code class="hljs elm"><span class="hljs-title">docker</span> ex<span class="hljs-keyword">port</span> 容器ID或容器名称 &gt; 文件名.tar<br></code></pre></td></tr></table></figure>
+<figure class="highlight elm"><table><tr><td class="code"><pre><code class="hljs elm"><span class="hljs-title">cat</span> 文件名.tar | docker <span class="hljs-keyword">import</span> - 镜像用户/镜像名:镜像版本 <br></code></pre></td></tr></table></figure>
+<p>提交一个新的容器副本</p>
+<figure class="highlight routeros"><table><tr><td class="code"><pre><code class="hljs routeros">docker commit  <span class="hljs-attribute">-m</span>=<span class="hljs-string">&quot;提示信息&quot;</span> <span class="hljs-attribute">-a</span>=<span class="hljs-string">&quot;作者名称&quot;</span> 容器ID或者容器名称 要创建的目标镜像名:[标签名]<br></code></pre></td></tr></table></figure>
+<h4 id="三、容器数据卷"><a href="#三、容器数据卷" class="headerlink" title="三、容器数据卷"></a>三、容器数据卷</h4><p>1、什么是卷？</p>
+<p>​    “卷”就是目录或文件。</p>
+<p>2、什么是容器数据卷？</p>
+<p>​    通俗的来说，容器数据卷就是将容器内部的某些文件夹和宿主机上的某些外部文件夹产生互联，从而实现数据持久化以及关键数据的备份等功能。说白了就是将容器内部的某些数据同步到外部的文件夹中另外保存一份，以防止容器被删除而导致的数据丢失的现象。</p>
+<p>3、数据卷的特性</p>
+<ul>
+<li>数据卷可以实现数据的共享和重用。</li>
+<li>数据卷可以实时更新数据。</li>
+<li>数据卷独立于容器来运行，不属于联合文件系统，可在容器删除时依旧有效。</li>
+</ul>
+<p>数据卷挂载</p>
+<figure class="highlight routeros"><table><tr><td class="code"><pre><code class="hljs routeros">docker <span class="hljs-built_in">run</span> -it <span class="hljs-attribute">--privileged</span>=<span class="hljs-literal">true</span> -v 宿主机目录路径:容器内目录 <span class="hljs-attribute">--name</span>=<span class="hljs-string">&quot;New Name&quot;</span> 镜像名称<br></code></pre></td></tr></table></figure>
+<p>查看数据卷是否挂载成功</p>
+<figure class="highlight gradle"><table><tr><td class="code"><pre><code class="hljs gradle">docker <span class="hljs-keyword">inspect</span> 容器ID<br></code></pre></td></tr></table></figure>
+<p>容器内部的读写权限</p>
+<p>默认情况下，容器内部是可读可写的。</p>
+<figure class="highlight routeros"><table><tr><td class="code"><pre><code class="hljs routeros">docker <span class="hljs-built_in">run</span> -it <span class="hljs-attribute">--privileged</span>=<span class="hljs-literal">true</span> -v /宿主机目录路径: /容器内目录路径 镜像名<br></code></pre></td></tr></table></figure>
+<p>相当于</p>
+<figure class="highlight routeros"><table><tr><td class="code"><pre><code class="hljs routeros">docker <span class="hljs-built_in">run</span> -it <span class="hljs-attribute">--privileged</span>=<span class="hljs-literal">true</span> -v /宿主机目录路径: /容器内目录路径:rw 镜像名<br></code></pre></td></tr></table></figure>
+<p>若想要容器实例内部只能读取不能写，执行以下命令。</p>
+<figure class="highlight routeros"><table><tr><td class="code"><pre><code class="hljs routeros">docker <span class="hljs-built_in">run</span> -it <span class="hljs-attribute">--privileged</span>=<span class="hljs-literal">true</span> -v /宿主机目录路径: /容器内目录路径:ro 镜像名<br></code></pre></td></tr></table></figure>
+<p>容器卷之间的继承</p>
+<figure class="highlight routeros"><table><tr><td class="code"><pre><code class="hljs routeros">docker <span class="hljs-built_in">run</span> -it <span class="hljs-attribute">--privileged</span>=<span class="hljs-literal">true</span> --volumes-from 父类 --name “New Name”  镜像名<br></code></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>容器化技术</category>
+      </categories>
       <tags>
-        <tag>Python</tag>
+        <tag>docker</tag>
       </tags>
   </entry>
   <entry>
-    <title>基本请求库-requests</title>
-    <url>/2022/07/26/request%E5%BA%93%E7%9A%84%E4%BD%BF%E7%94%A8/</url>
-    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">$ hexo new <span class="hljs-string">&quot;My New Post&quot;</span> hexo new <span class="hljs-string">&quot;My New Post&quot;</span> hexo new <span class="hljs-string">&quot;My New Post&quot;</span> hexo new <span class="hljs-string">&quot;My New Post&quot;</span> hexo new <span class="hljs-string">&quot;My New Post&quot;</span> hexo new <span class="hljs-string">&quot;My New Post&quot;</span><br></code></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">$ hexo server<br></code></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">$ hexo generate<br>$ hexo new <span class="hljs-string">&quot;My New Post&quot;</span><br>$ hexo new <span class="hljs-string">&quot;My New Post&quot;</span><br></code></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">$ hexo deploy<br>$ hexo new <span class="hljs-string">&quot;My New Post&quot;</span><br></code></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
-]]></content>
+    <title>Git的基本使用</title>
+    <url>/2022/07/29/Git%E7%9A%84%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/</url>
+    <content><![CDATA[<p><strong>1、简介</strong></p>
+<p>​    Git是一款开源的分布式版本控制工具，它可以用于敏捷高效的处理任何大小的项目进行版本迭代。</p>
+<p><strong>2、原理剖析</strong></p>
+<p><img src="http://image.enlightenblog.cn/illustration/Git%E6%B5%81%E7%A8%8B%E5%9B%BE.jpg" alt="Git工作流程图"></p>
+<p>首先解释一些名词含义：</p>
+<ul>
+<li>本地仓库</li>
+<li>本地仓库又称为版本库，我们可以把它理解成为一个目录并且该目录下面的所有文件都被Git管理起来，该目录下的每个文件的修改、删除操作Git都能进行记录和跟踪，以便在将来某个时刻可以将其“还原”。</li>
+<li>工作区</li>
+</ul>
+<p>​     工作区就是普通意义上的目录，Git所管理的目录就是工作区。</p>
+<ul>
+<li>暂存区</li>
+</ul>
+<p>​     暂存区是处于工作区和版本库（本地仓库）之间的一个区域，我们也可以把它理解为缓存，当我们将一个文件在工作区修改后可以通过git add命令将其添加到暂存区。</p>
+<p>​    工作流程：</p>
+<p>​    当我们使用git bash窗口或者命令行在某一个文件夹下执行<strong>git init</strong>命令后，就会在该文件夹下生成一个.git文件夹，此时说明该文件夹已经被Git追踪管理并生成本地仓库。当前文件夹就相当于一个工作区，当我们编辑该工作区下的文件后执行<strong>git add —filename</strong>命令就可以将该文件添加到暂存区，然后执行 <strong>git commit -m “描述信息” —filename</strong> 就可以将该文件提交到本地仓库，从而达到文件更新，版本控制的效果。</p>
+<p><strong>3、设置用户签名</strong></p>
+<p>​    用户签名的作用是区分不同操作者的身份，用户的签名信息在每一个版本的提交信息中能够看到，并且以此确认本次提交是哪个用户操作的。需要注意的是，这里设置用户签名和将来登录Github的账号（或者其他代码托管中心）没有任何关系。</p>
+<figure class="highlight lua"><table><tr><td class="code"><pre><code class="hljs lua">git <span class="hljs-built_in">config</span> <span class="hljs-comment">--global user.name 用户名</span><br>git <span class="hljs-built_in">config</span> <span class="hljs-comment">--global user.email 用户邮箱</span><br></code></pre></td></tr></table></figure>
+<p><strong>4、初始化本地仓库</strong></p>
+<p>​    执行该命令可以工作区文件夹交给Git进行管理，从而生成本地仓库（即版本库）。</p>
+<figure class="highlight csharp"><table><tr><td class="code"><pre><code class="hljs csharp">git <span class="hljs-keyword">init</span><br></code></pre></td></tr></table></figure>
+<p><strong>5、查看本地仓库状态</strong></p>
+<p>​    查看当前版本库的状态，即当前版本库是处于在哪一个分支以及是否有文件已经被修改但未添加到暂存区或提交到本地仓库。</p>
+<figure class="highlight ebnf"><table><tr><td class="code"><pre><code class="hljs ebnf"><span class="hljs-attribute">git status</span><br></code></pre></td></tr></table></figure>
+<p><strong>6、添加暂存区</strong></p>
+<p>​    将工作区修改后的文件先添加到暂存区中，在暂存区的文件被执行commit命令之前，版本库中的文件内容信息是不会改变的，所以添加到暂存区可以理解为相当于将文件加到缓存中，仅仅做了预备工作，但是尚未更新展示而已。</p>
+<figure class="highlight livecodeserver"><table><tr><td class="code"><pre><code class="hljs livecodeserver">git <span class="hljs-built_in">add</span> <span class="hljs-comment">--filename</span><br></code></pre></td></tr></table></figure>
+<p><strong>7、从暂存区中删除文件</strong></p>
+<figure class="highlight brainfuck"><table><tr><td class="code"><pre><code class="hljs brainfuck"><span class="hljs-comment">git rm</span> <span class="hljs-literal">--</span><span class="hljs-comment">cached</span> <span class="hljs-literal">--</span><span class="hljs-comment">filename</span><br></code></pre></td></tr></table></figure>
+<p><strong>8、提交本地库</strong></p>
+<p>​    如果一个文件已经添加到暂存区，可以执行commit命令将其提交到版本库中来更新本地仓库的文件信息，从而达到更新版本的效果。</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><code class="hljs sql">git <span class="hljs-keyword">commit</span> <span class="hljs-operator">-</span>m &quot;用于描述的日志信息&quot; <span class="hljs-comment">--filename</span><br></code></pre></td></tr></table></figure>
+<p><strong>9、查看引用日志信息</strong></p>
+<p>​    使用该命令可以查看提交过的版本信息（这里版本信息中的版本号是取完整版本号的前6位）以及当前所在分支信息。</p>
+<figure class="highlight angelscript"><table><tr><td class="code"><pre><code class="hljs angelscript">git <span class="hljs-built_in">ref</span>log<br></code></pre></td></tr></table></figure>
+<p><strong>10、查看详细日志信息</strong></p>
+<p>​    使用该命令可以查看更详细的日志信息，包括提交版本更新的用户信息、版本号、提交时间、当前所在分支信息以及提交时的描述信息。</p>
+<figure class="highlight 1c"><table><tr><td class="code"><pre><code class="hljs 1c">git <span class="hljs-built_in">log</span><br></code></pre></td></tr></table></figure>
+<p><strong>11、版本穿梭</strong></p>
+<p>​    如果在版本更新之后却感觉之前的版本更好一些，我们也可以通过以下命令来进行版本穿梭，回到任意一个版本的状态。</p>
+<figure class="highlight pgsql"><table><tr><td class="code"><pre><code class="hljs pgsql">git <span class="hljs-keyword">reset</span> <span class="hljs-comment">--hard 版本号</span><br></code></pre></td></tr></table></figure>
+<blockquote>
+<p><strong>分支</strong></p>
+</blockquote>
+<p>​    在介绍分支操作之前，我们需要了解一下什么是分支？Git中的分支可以给使用者提供多个环境，即Git中各个分支之间是相互完全独立的，意味着你可以把各个模块的开发工作从开发主线上分离开来，以免影响开发主线，最后在各个分支模块的开发均完成之后，我们可以将其都合并到主分支上，从而达到版本更迭的效果。</p>
+<p><strong>12、查看分支</strong></p>
+<p>​    使用以下命令可以查看当前都有哪些分支。</p>
+<figure class="highlight ebnf"><table><tr><td class="code"><pre><code class="hljs ebnf"><span class="hljs-attribute">git branch -v</span><br></code></pre></td></tr></table></figure>
+<p><strong>13、创建分支</strong></p>
+<p>​    使用以下命令可以创建一个新的分支，任意两个分支之间是相互独立的。</p>
+<figure class="highlight mipsasm"><table><tr><td class="code"><pre><code class="hljs mipsasm">git <span class="hljs-keyword">branch </span>分支名<br></code></pre></td></tr></table></figure>
+<p><strong>14、切换分支</strong></p>
+<p>​    使用以下命令可以切换分支，任意两个分支之间的操作都是相互完全独立且互不干扰的。</p>
+<figure class="highlight nginx"><table><tr><td class="code"><pre><code class="hljs nginx"><span class="hljs-attribute">git</span> checkout 分支名<br></code></pre></td></tr></table></figure>
+<p><strong>15、合并分支</strong></p>
+<p>​    使用以下命令可以将两个分支进行合并。例如我们创建了一个新的分支，新分支在原来主分支的基础上增加了某些功能，此时我们就可以将新分支和原来的主分支进行合并操作，从而使得主分支上也有新分支的新增功能。<br>​    我们在进行分支合并时可能会遇到合并冲突问题，因为在合并分支时，两个分支在同一个文件的同一个位置有两套不同的修改，Git无法替我们决定使用哪一个，必须人为决定代码新内容，再重新添加缓存区并提交版本库。</p>
+<figure class="highlight cos"><table><tr><td class="code"><pre><code class="hljs cos">git <span class="hljs-keyword">merge</span> 分支名<br></code></pre></td></tr></table></figure>
+<p><strong>16、将本地仓库推送到远程仓库</strong></p>
+<p>​    例如我们可以通过该命令将项目信息推送到Github、Gitee等远程仓库进行存储。</p>
+<figure class="highlight arcade"><table><tr><td class="code"><pre><code class="hljs arcade">git <span class="hljs-built_in">push</span> 远程仓库地址/别名 分支名称<br></code></pre></td></tr></table></figure>
+<p><strong>17、拉取远程仓库文件</strong></p>
+<p>​    例如我们可以通过该命令来拉取Github、Gitee等远程仓库的项目信息，拉取下来之后，如果远程仓库的信息被修改了，本地仓库的信息会自动更新为最新版本。</p>
+<figure class="highlight nginx"><table><tr><td class="code"><pre><code class="hljs nginx"><span class="hljs-attribute">git</span> pull 远程仓库地址/别名 分支名称<br></code></pre></td></tr></table></figure>
+<p><strong>18、克隆远程仓库</strong></p>
+<p>​    我们可以使用该命令将远程仓库的项目信息拉取到本地仓库，clone命令和pull命令的区别就是clone命令仅仅是将远程项目拉取到本地仓库，而pull命令不仅将远程仓库的项目信息拉取到本地仓库还将自动进行版本更新操作来替换本地仓库中的旧版本信息。</p>
+<figure class="highlight crmsh"><table><tr><td class="code"><pre><code class="hljs crmsh">git <span class="hljs-keyword">clone</span> <span class="hljs-title">远程仓库地址</span><br></code></pre></td></tr></table></figure>
+<p><strong>19、生成rsa公钥和私钥</strong></p>
+<figure class="highlight excel"><table><tr><td class="code"><pre><code class="hljs excel">ssh-keygen -<span class="hljs-built_in">t</span> rsa -C github邮箱帐号<br></code></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>实用工具</category>
+        <category>Git</category>
+      </categories>
       <tags>
-        <tag>Python</tag>
-        <tag>网络爬虫</tag>
+        <tag>Git</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>HTTPS-RSA握手协议</title>
+    <url>/2022/07/29/HTTPS-RSA%E6%8F%A1%E6%89%8B%E5%8D%8F%E8%AE%AE/</url>
+    <content><![CDATA[<h4 id="一、TLS握手过程"><a href="#一、TLS握手过程" class="headerlink" title="一、TLS握手过程"></a>一、TLS握手过程</h4><p><img src="http://image.enlightenblog.cn/illustration/TLS%E6%8F%A1%E6%89%8B%E6%B5%81%E7%A8%8B.png" alt="TLS握手流程"></p>
+<p>​    上图展示了TSL的握手过程，其中的每一个框都表示一个记录，记录时TLS收发数据的基本单位，并且多个记录可以组合成一个TCP包来进行发送，所以通常经过四个消息就可以完成TLS握手，也就是需要2个RTT的时延。以上工作完成之后就可以在安全的通信环境中发送HTTP报文，从而实现HTTPS协议。</p>
+<h4 id="二、RSA握手过程"><a href="#二、RSA握手过程" class="headerlink" title="二、RSA握手过程"></a>二、RSA握手过程</h4><p>​    先简单描述一下RSA的握手过程：</p>
+<p>​    首先，在将TLS证书部署到服务端的时候，证书文件中包含一对公钥和私钥，其中公钥在TLS握手阶段传递给客户端，私钥则一直被保留在服务端。</p>
+<p>​    其次，在RSA密钥协商算法中，客户端会生成随机密钥，并使用服务端传过来的公钥进行加密之后再传送给服务端。根据非对称加密算法，我们使用公钥加密的信息只有通过私钥才能进行解密。这样再服务端解密后，双方就得到了相同的随机密钥，最后再使用它来加密应用消息。</p>
+<p><img src="http://image.enlightenblog.cn/illustration/https%E5%8D%8F%E8%AE%AE%E7%9A%84%E6%8F%A1%E6%89%8B%E8%BF%87%E7%A8%8B.jpg" alt="https协议的握手过程"></p>
+<p><strong>TLS第一次握手</strong></p>
+<p>​    客户端首先会发送一个 Client Hello 消息，消息里面包含客户端使用的TLS版本号、生成的随机数（Client Random）以及客户端支持的密码套件，这个随机数会被服务端所保留，为后面生成对称加密的密钥做准备。</p>
+<p><strong>TLS第二次握手</strong></p>
+<p>​    服务端收到客户端的 Client Hello 消息后，会返回一个 Server Hello 消息，消息里面包含了服务器确认的TLS版本号，服务器端生成的随机数（Server Random）以及从客户端的密码套件列表中选择一个合适的密码套件。</p>
+<p>​    然后，服务端为了证明自己的身份，会发送 Server Certificate 消息给客户端，这个消息中包含了数字证书。</p>
+<p>​    随后，服务端发送 Server Hello Done 消息，目的是告诉客户端该发送的东西已经发送完了，本次信息交互完毕！</p>
+<p><strong>TLS第三次握手</strong></p>
+<p>​    客户端会生成一个新的随机数（pre-master）,使用服务器的RSA公钥加密该随机数，通过 Change Cipher Key Exchange 消息传给服务器。服务器收到后，会使用RSA私钥来进行解密，从而得到客户端发来的随机数 pre-master。至此客户端和服务器端都得到了三个随机数，分别是Client Random、Server Random、pre-master。双方会根据这三个随机数来生成会话密钥，用于对后续HTTP的请求/响应的数据进行加密/解密。</p>
+<p>​    生成会话密钥之后，客户端会继续发送一个 Change Cipher Spec 消息，告诉服务器端开始使用加密方式发送消息。</p>
+<p>​    之后客户端还会发送一个 Encrypted Handshake Message(Finished) 消息，把之前的所有发送的数据做一个摘要，再用会话密钥加密一下，让服务器做一个验证，验证加密通信是否可用，之前的握手信息是否被中途篡改过。</p>
+<p>​    注：在 Change Cipher Spec消息之前传输的TLS握手数据都是明文，之后都是对称加密的密文。</p>
+<p><strong>TLS第四次握手</strong></p>
+<p>​    在第四次握手的过程中，服务器端也会发送一个 Change Cipher Spec 消息（告诉客户端可以使用加密通信了）和 Encrypted Handshake Message(Finished) 消息（验证加密通信是否可用以及之前的握手信息是否被篡改过）。</p>
+<h4 id="三、客户端验证CA证书"><a href="#三、客户端验证CA证书" class="headerlink" title="三、客户端验证CA证书"></a>三、客户端验证CA证书</h4><p>​    CA(Certificate Authority) 是一个证书认证机构，它相当于网络世界中的公安局，具有极高的可信度。有它颁发的数字证书是用来认证公钥持有者的身份，以防止第三方进行冒充。通俗的说，这些数字证书就是来告诉客户端该服务端是可信的，所以证书中所包含的服务端的公钥也是可信的。</p>
+<p>​    一个数字证书中包含了哪些内容？</p>
+<ul>
+<li>公钥</li>
+<li>持有者信息</li>
+<li>证书认证机构的信息</li>
+<li>CA对这份文件的数字签名以及使用的算法</li>
+<li>证书有效期</li>
+<li>其他额外信息</li>
+</ul>
+<p><strong>验证流程</strong></p>
+<p>1）CA会将证书中所包含的公钥、颁发者、有效时间等信息打成一个包，然后对这些信息进行Hash计算得到一个Hash值。</p>
+<p>2）CA用自己的私钥对该Hash值进行加密，从而生成Certificate Signature，即对证书进行了数字签名。</p>
+<p>3）最后将 Certificate Signature 添加在文件证书上，形成数字证书。</p>
+<p>4）客户端使用相同的Hash算法获取该证书的Hash值 - H1</p>
+<p>5）因为浏览器和操作系统已经事先集成了CA的公钥信息，所以客户端浏览器可以使用公钥解密Certificate Signature 得到一个Hash值 - H2</p>
+<p>6）最后对比H1和H2，如果二者的值相同，则为可信任的证书，否则为不可信任的证书。</p>
+<p><strong>证书链</strong></p>
+<p>​    在证书的认证过程中还存在一个证书信任链的问题。我们向CA机构申请的证书一般不是由根证书来进行签发的，而是由中间证书签发的，如下所示。</p>
+<p><img src="http://image.enlightenblog.cn/illustration/%E8%AF%81%E4%B9%A6%E9%93%BE.png" alt="证书链"></p>
+<p>从图中我们可以看出来证书“baidu.com”是由中间证书“GlobalSign Organization Validation CA - SHA256 - G2”签发的，而中间证书“GlobalSign Organization Validation CA - SHA256 - G2”是由根证书“ GlobalSign Root CA”签发的。因为根证书一般是集成到我们的操作系统中的，它具有绝对的安全性，所以客户端只信任根证书，但又因为根证书信任中间证书，而中间证书信任“baidu.com”的证书，故客户端也信任 证书“baidu.com”。</p>
+<p><img src="http://image.enlightenblog.cn/illustration/%E8%AF%81%E4%B9%A6%E9%AA%8C%E8%AF%81%E6%B5%81%E7%A8%8B.png" alt="证书验证流程"></p>
+<h4 id="四、RSA算法的缺陷"><a href="#四、RSA算法的缺陷" class="headerlink" title="四、RSA算法的缺陷"></a>四、RSA算法的缺陷</h4><p>​    因为在第三次握手时客户端给服务器端传递随机数时使用的是公钥进行加密，服务器端收到之后使用私钥来进行解密得到随机数，所以一旦服务器端的私钥泄露了，被截获的所有TLS密文都会被破解。</p>
+]]></content>
+      <categories>
+        <category>计算机基础</category>
+      </categories>
+      <tags>
+        <tag>计算机网络</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>HTTPS-ECDHE握手协议</title>
+    <url>/2022/07/29/HTTPS-ECDHE%E6%8F%A1%E6%89%8B%E5%8D%8F%E8%AE%AE/</url>
+    <content><![CDATA[<h4 id="一、离散对数"><a href="#一、离散对数" class="headerlink" title="一、离散对数"></a>一、离散对数</h4><p>​    DH算法是非对称加密算法，因此它可以用于密钥交换，该算法的核心数学思想是离散对数。</p>
+<p>​    但是什么是离散对数呢？</p>
+<p>​     举个例子：对于以 2 为底的时候，32的对数是5，64的对数是6。由此可以看出对数运算的取值是可以连续的，而离散对数的取值是不能连续的。离散对数是在对数的基础上增加了模运算，通常来讲就是我们所说的取余数。</p>
+<p><img src="http://image.enlightenblog.cn/illustration/%E7%A6%BB%E6%95%A3%E5%AF%B9%E6%95%B0.png" alt="离散对数"></p>
+<p>​    在上图的公式中，a为底数，i为对数，b为真数，p为模数，其中底数 a 和模数 p 为公共参数。当我们知道对数时，可以用上面的公式计算出真数，但是反过来当我们知道真数时却很难推算出对数。特别时当模数 p 时一个很大的质数，即使知道底数 a 和真数 b ，在现有的计算机水平下也是几乎无法算出离散对数的。</p>
+<h4 id="二、DH-算法"><a href="#二、DH-算法" class="headerlink" title="二、DH 算法"></a>二、DH 算法</h4><p>​    下面我们用一个场景来描述一下DH算法时如何实现密钥交换的。</p>
+<p>​    假设张三和李四约定好使用DH算法来交换密钥，首先他们需要确定两个公开的参数，即模数(P)和底数(G)，接着张三和李四各自生成一个随机整数作为私钥，私钥不能公开，这里使用 a 和 b 来表示张三和李四的私钥，于是他们可以根据以上信息分别算出各自的公钥：</p>
+<ul>
+<li>张三的公钥A：A = G ^ a ( mod P )</li>
+<li>李四的公钥B：B = G ^ b ( mod P )</li>
+</ul>
+<p>​    我们知道从真数 (A, B) 反向计算对数 (a, b) 是非常困难的。双方交换了彼此的公钥之后，张三手上有A, B, a, P, G五个数，李四手上有A, B, b, P, G五个数。</p>
+<p><img src="http://image.enlightenblog.cn/illustration/DH%E7%AE%97%E6%B3%95.png" alt="DH算法"></p>
+<p>​    因为离散对数的幂运算具有交换律，所以张三和李四执行以上运算得到相同的结果 K，故 K 就是张三和李四之间使用的对称加密密钥。</p>
+<h4 id="三、DHE-算法"><a href="#三、DHE-算法" class="headerlink" title="三、DHE 算法"></a>三、DHE 算法</h4><p>根据私钥的生成方式，DH算法又分为两种实现：</p>
+<ul>
+<li>Static DH 算法（已被废弃）</li>
+<li>DHE 算法（常用）</li>
+</ul>
+<p><strong>Static DH 算法</strong></p>
+<p>​    在 Static DH 算法中有一方的私钥时静态的，也就是说每次密钥协商时有一方的私钥都是一样的，一般是服务器方保持不变，而客户端的私钥是随机生成的。由于只有客户端的私钥是变化的，而服务端的私钥是不变的。随着时间延长，黑客会截获大量的密钥协商过程中的公开数据，并根据这些数据来暴力破解出服务器的私钥，从而计算出会话密钥了，所以Static DH算法不具备前向安全性。</p>
+<p><strong>EDH 算法</strong></p>
+<p>​    在 EDH 算法中，双方的私钥在每次密钥交换通信时都是随机生成的，所以即使某一次通信过程中的私钥被人破解，其他的通信过程也都是安全的，因为每次通信过程的私钥是相互独立的，他们之间没有任何关系，这样就保证了前向安全性。</p>
+<h4 id="四、ECDHE-算法"><a href="#四、ECDHE-算法" class="headerlink" title="四、ECDHE 算法"></a>四、ECDHE 算法</h4><p>​    由于DHE 算法需要做大量的乘法运算，所以DHE 算法的性能不佳，为了提高DHE算法的性能，所以就有了现在广泛使用的 ECDHE 算法。ECDHE 算法是在DHE 算法的基础上使用了 ECC 椭圆曲线特性，可以用更少的计算量来计算出公钥。</p>
+<p><strong>ECDHE 密钥交换算法的过程</strong></p>
+<ul>
+<li>双方事先约好使用椭圆曲线的类型以及曲线上的基点G，这是两个公开的参数。</li>
+<li>双方各自随机生成一个随机数作为私钥 (d)与基点相乘得到公钥 Q (Q=dG)。假设张三的公钥和私钥分别为Q1和d1，李四的公钥和私钥分别为Q2和d2。</li>
+<li>双方首先交换各自的公钥，张三的计算点为： (x1, y1) = d1Q2，李四的计算点为： (x2, y2) = d2Q1，由于椭圆曲线上是满足乘法交换律和结合律的，所以 d1Q2=d1d2G = d2d1G=d2Q1，故点 (x1, y1) 和点 (x2, y2)是同一个带你，即它是通信双方共享的会话密钥。</li>
+</ul>
+<p>​    从上述可知，ECDHE 算法中，通信双方的私钥都是随机生成且不公开，并且大大减少了 DHE 算法的计算量。</p>
+<h4 id="五、ECDHE-握手过程"><a href="#五、ECDHE-握手过程" class="headerlink" title="五、ECDHE 握手过程"></a>五、ECDHE 握手过程</h4><p><img src="http://image.enlightenblog.cn/illustration/ECDHE%E7%AE%97%E6%B3%95%E7%9A%84TLS%E6%8F%A1%E6%89%8B%E8%BF%87%E7%A8%8B.jpg" alt="ECDHE算法的TLS握手过程"></p>
+<p><strong>TLS第一次握手</strong></p>
+<p>​    客户端首先会发送一个 Client Hello 消息，消息里面包含客户端使用的TLS版本号、生成的随机数（Client Random）以及客户端支持的密码套件，这个随机数会被服务端所保留，为后面生成对称加密的密钥做准备。</p>
+<p><strong>TLS第二次握手</strong></p>
+<p>​    服务端收到客户端的 Client Hello 消息后，会返回一个 Server Hello 消息，消息里面包含了服务器确认的TLS版本号，服务器端生成的随机数（Server Random）以及从客户端的密码套件列表中选择一个合适的密码套件。</p>
+<p>​    接着服务端为了证明自己的身份，会发送 Certificate 消息，即把证书发送给服务端。</p>
+<p>​    在发送完证书之后，服务器又发送了 Server Key Exchange 消息，在这个过程中服务器做了以下几件事：</p>
+<ul>
+<li>选好了曲线类型以及椭圆曲线的基点G，这些信息会公开给客户端</li>
+<li>生成随机数作为服务端的椭圆曲线的私钥</li>
+<li>根据基点G和私钥计算出服务端椭圆曲线的公钥并公开给服务端</li>
+</ul>
+<p>为了保证这个椭圆曲线的公钥不被第三方篡改，服务端会使用RSA签名算法给该公钥做个签名。</p>
+<p>​    随后就是发送 Server Hello Done 消息，表明服务端本次交互完毕！</p>
+<p>​    至此，TLS的前两次握手已经完成，目前客户端课服务端通过明文共享了以下几个信息：Client Rnadom，Server Random，椭圆曲线类型，椭圆曲线基点，服务端椭圆曲线公钥。这些信息用户后续生成会话密钥。</p>
+<p><strong>TLS第三次握手</strong></p>
+<p>​    客户端收到服务端的证书之后先验证证书是否合法，如果证书是真实合法的，再用证书的公钥来验证签名，这样就可以确定服务端的身份了。随后客户端会生成一个随机数作为客户端椭圆曲线的私钥，然后再根据前面服务端所共享的椭圆曲线类型，椭圆曲线基点等信息来生成客户端的椭圆曲线的公钥，接着用Client Key Exchange消息发送给服务端。</p>
+<p>​    至此双方都有了对方的椭圆曲线公钥，自己的私钥以及椭圆曲线基点G，并计算出了相同的坐标 点(x, y)，前面将 ECDHE 算法的时候我们说点(x, y)是会话密钥，但在实际应用中，点 (x, y) 还不是最终的会话密钥，最终的会话密钥是用“客户端随机数+服务端随机数+点(x, y)”三证共同生成的。</p>
+<p>​    生成会话密钥之后，客户端会继续发送一个 Change Cipher Spec 消息，告诉服务器端开始使用对称加密方式发送消息。</p>
+<p>​    之后客户端还会发送一个 Encrypted Handshake Message(Finished) 消息，把之前的所有发送的数据做一个摘要，再用会话密钥加密一下，让服务器做一个验证，验证本次生成的对称密钥是否可用以及之前的握手信息是否被中途篡改过。</p>
+<p>​    注：对于 ECDHE 算法，客户端可以不等服务端的最后一次TLS我后就可以提前发出加密的HTTP数据，从而节省了一个消息的往返时间。</p>
+<p><strong>TLS第四次握手</strong></p>
+<p>​    在第四次握手的过程中，服务器端也会发送一个 Change Cipher Spec 消息（告诉客户端可以使用加密通信了）和 Encrypted Handshake Message(Finished) 消息（验证加密通信是否可用以及之前的握手信息是否被篡改过）。</p>
+<p>​    如果双方都没有问题，那么握手就正式完成，就可以正常收发加密的HTTP请求和响应了。</p>
+]]></content>
+      <categories>
+        <category>计算机基础</category>
+      </categories>
+      <tags>
+        <tag>计算机网络</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>TCP/IP-网络模型</title>
+    <url>/2022/07/29/TCP-IP-%E7%BD%91%E7%BB%9C%E6%A8%A1%E5%9E%8B/</url>
+    <content><![CDATA[<h4 id="一、模型概念"><a href="#一、模型概念" class="headerlink" title="一、模型概念"></a>一、模型概念</h4><p>​    我们所说的网络模型其实有很多种，包括OSI七层网络模型、五层网络模型以及最常用的TCP/IP四层协议模型。</p>
+<p><img src="http://image.enlightenblog.cn/illustration/%E7%BD%91%E7%BB%9C%E6%A8%A1%E5%9E%8B.png" alt="网络模型"></p>
+<p>​    TCP/IP网络模型是现代互联网的基础，它是一系列网络协议的总称，是一套通用的网络协议，用于不同设备的进程之间的网络通信。该网络模型主要划分为四层：应用层、传输层、网络层、链路层（其实链路层又包含了数据链路层和物理层），所以我们说这个网络协议是分层的，每一层都有各自的职责和作用，并且每一层的功能都是借助于下一层所提供的服务来进行实现的。</p>
+<h4 id="二、层次简介"><a href="#二、层次简介" class="headerlink" title="二、层次简介"></a>二、层次简介</h4><h5 id="1、应用层"><a href="#1、应用层" class="headerlink" title="1、应用层"></a>1、应用层</h5><p>​    应用层位于协议的最上层，用户能直接接触到的层次就是应用层，例如我们平时使用的手机或者电脑软件就是在应用层上面实现的。当两个设备上的不同应用需要进行通信时，应用就把数据传递给下一层，即传输层来进行数据的传输。但是应用层只需要关注本身对用户所提供的功能，而不需要关注数据是如何进行传输的。</p>
+<p>​    为了让大家能够更好的理解，我们举一个例子。例如在我们寄快递的时候，我们只需要知道快递提供的功能是帮我们将包裹转交给收件人，所以我们只需要把包裹交给快递员即可，我们不需要关心包裹是如何运输的。</p>
+<h5 id="2、传输层"><a href="#2、传输层" class="headerlink" title="2、传输层"></a>2、传输层</h5><p>​    传输层顾名思义就是用来传输数据的，在传输层中主要涉及到了两种传输协议，即TCP和UDP。</p>
+<p>​    TCP的全称是传输层控制协议(Transmission Control Protocol)，它是一种面向连接的、可靠的传输协议。两个进程在使用TCP进行数据传输时，都需要先进行“三次握手”来建立连接。除此之外，TCP还具有流量控制、拥塞控制等特性来保证数据安全可靠的传输。一般对数据安全性要求比较高的应用会采用TCP协议来进行数据传输。</p>
+<p>​    UDP的全称是用户数据包协议(User Datagram Protocol)，它是一种无连接的传输协议。该协议主张的传输思想是“尽力而为”，即它不保证数据在传输的过程中不会出现数据丢失的现象，仅仅是尽力为用户进行数据传输。这种无连接的协议的好处是速度快，一般一些实时性的数据我们都采用UDP协议来进行传输，例如：语音信息，QQ聊天信息等。</p>
+<p>​    传输层的网络连接是一种端到端(End To Tnd)的网络连接。每一台设备上面可能会运行着很多个应用程序，但是传输层所接收或者要发送的数据包是来自哪个应用？又或要送达哪一个应用呢？这时就需要有一个编号来进行标识，这个编号就是端口。每一个应用程序跑在一个端口上，这样传输层就可以明确的知道这个数据包来自哪个应用或者要送达哪个应用了。这种网络连接我们形象的称其为端到端的网络连接。</p>
+<p>​    </p>
+<h5 id="3、网络层"><a href="#3、网络层" class="headerlink" title="3、网络层"></a>3、网络层</h5><p>​    网络层负责将数据从一个设备传输到另一个设备。但是我们如何知道当前设备上的数据要发送给哪个设备呢？其实我们一般是通过IP地址来给设备进行编号，每一台主机都会用一个IP地址来进行标识。            </p>
+<p>每一个IP地址都会包含两个部分：</p>
+<ul>
+<li>网络号：用于标识一个IP地址是属于哪一个子网</li>
+<li>主机号：用来标识每一个子网下面的不同的主机</li>
+</ul>
+<p>网络层的IP协议可以使用IP地址并配合子网掩码来进行目标主机的寻址。除此之外，它的另一个功能就是路由，因为两台设备之间并不是直接相连的，而是由很多个路由器，交换机等网络设备将其连接起来的，并且各个路由器和交换机之间也是交错连接，这样就导致网络中可能会有很多条路径能够将原设备和目标设备连接起来，所以当数据包到达一个网络节点（每一个路由器或交换机即可称为一个节点）就需要通过算法来决定下一步要走哪一条路径，到达哪一个节点。因此IP协议的寻址功能就是告诉我们下一个目的地应该往哪一个方向走，而路由则根据下一个目的地选择路径。</p>
+<p>​    网络层的网络连接是一种点对点（Point to Point）的网络连接。因为原设备和目标设备之间并不是直接相连的，需要多个网络设备（路由器、交换机等）作为中间节点来进行数据中转，我们可以形象的将其理解为点对点的网络连接方式。</p>
+<h5 id="4、数据链路层（包含在链路层）"><a href="#4、数据链路层（包含在链路层）" class="headerlink" title="4、数据链路层（包含在链路层）"></a>4、数据链路层（包含在链路层）</h5><p>​    注：在TCP/IP四层模型中包含在链路层</p>
+<p>​    在实际的应用中，两个设备之间一般需要跨网络进行数据传输，当然两台设备也可以在同一个网络下进行数据传输。如果我们需要跨网络进行数据传输，那么就需要有一个设备同时在两个网络之间，这个设备一般就是路由器，路由器可以通过路由表来计算出下一个要去的IP地址。但是路由器如何知道下一个IP地址是哪一个设备的呢？</p>
+<p>​    数据链路层就是用来标识网络中的设备的，如果一台设备想要上网的话，这台设备上面就会配有一块网卡，每个网卡上面就会有一个MAC地址，这个MAC地址就是用来唯一标识一台设备的。路由器用过路由表计算出了下一个目的地的IP地址，再通过ARP协议找到下一个目的地对应的MAC地址，这样就知道这个IP地址是与哪一个设备所对应的了。</p>
+<h5 id="5、物理层（包含在链路层）"><a href="#5、物理层（包含在链路层）" class="headerlink" title="5、物理层（包含在链路层）"></a>5、物理层（包含在链路层）</h5><p>​    注：在TCP/IP四层模型中包含在链路层</p>
+<p>​    物理层主要为数据链路层提供二进制服务，当数据要发送到网络的时候，需要把数据包转换成电信号，让其可以在物理介质中进行传输。</p>
+<p>​    综上所述，网络协议通常从上到下分为应用层、传输层、网络层、数据链路层、物理层这五个层次。</p>
+]]></content>
+      <categories>
+        <category>计算机基础</category>
+      </categories>
+      <tags>
+        <tag>计算机网络</tag>
       </tags>
   </entry>
 </search>
